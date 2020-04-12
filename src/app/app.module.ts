@@ -8,10 +8,16 @@ import { MatSliderModule } from '@angular/material/slider';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import {MatListModule} from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 import 'hammerjs';
+import { MenuComponent } from './menu/menu.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +25,10 @@ import 'hammerjs';
     MatToolbarModule,
     FlexLayoutModule,
     MatSliderModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatButtonModule,
     AppRoutingModule
   ],
   providers: [],
