@@ -25,7 +25,9 @@ import {DishService} from './services/dish.service';
 import {PromotionService} from './services/promotion.service';
 import {LeaderService} from './services/leader.service';
 import { Leader } from './shared/leader';
-  //import { from } from 'rxjs';
+import { LoginComponent } from './login/login.component';
+import  {MatDialogModule} from '@angular/material/dialog';
+//import { from } from 'rxjs';
 //import { AppRoutingModule } from './app-routing/app-routing.module';
 
 @NgModule({
@@ -38,6 +40,7 @@ import { Leader } from './shared/leader';
     HomeComponent,
     AboutComponent,
     ContactComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,10 @@ import { Leader } from './shared/leader';
     MatCardModule,
     MatButtonModule,
     AppRoutingModule,
+    MatDialogModule,
+  ],
+  entryComponents:[
+    LoginComponent,
   ],
   providers: [
     DishService,
