@@ -35,6 +35,9 @@ import { LoginComponent } from './login/login.component';
 import  {MatDialogModule} from '@angular/material/dialog';
 //import { from } from 'rxjs';
 //import { AppRoutingModule } from './app-routing/app-routing.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -61,9 +64,12 @@ import  {MatDialogModule} from '@angular/material/dialog';
     AppRoutingModule,
     MatDialogModule,
     FormsModule,
+    ReactiveFormsModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
+    MatSlideToggleModule,
   ],
   entryComponents:[
     LoginComponent,
