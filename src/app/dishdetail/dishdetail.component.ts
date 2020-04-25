@@ -18,7 +18,9 @@ export class DishdetailComponent implements OnInit {
   ngOnInit(): void {
     // helps define url as /dishdetail/1 
     let id = this.route.snapshot.params['id'];
-    this.dish=this.dishService.getDish(id);
+    //this.dish=this.dishService.getDish(id);
+    this.dishService.getDish(id)
+    .then((dish)=>this.dish=dish);
   }
   goBack():void {
     this.location.back();
