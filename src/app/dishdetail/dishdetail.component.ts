@@ -20,11 +20,12 @@ export class DishdetailComponent implements OnInit {
   errMes:string;
   commentForm:FormGroup;
   comment:Comment;
+  dishCopy:Dish;
   @ViewChild('cform') commentFormDirective;
   formErrors={
     'author':'',
     'comment':'',
-    'rating':0,
+    'rating':5,
   };
   validationMessages={
     'author':{
@@ -43,10 +44,11 @@ export class DishdetailComponent implements OnInit {
             private route: ActivatedRoute, 
             private cf:FormBuilder,
             @Inject("BaseURL") public BaseURL) {
-              this.createForm();
+              //this.createForm();
              }
   
   ngOnInit() {
+    this.createForm();
     // helps define url as /dishdetail/1 
     //const id = this.route.snapshot.params['id'];
     //this.dish=this.dishService.getDish(id);
@@ -55,7 +57,7 @@ export class DishdetailComponent implements OnInit {
     // .subscribe((dish)=>this.dish=dish);
     this.dishService.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-    .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); },
+    .subscribe(dish => { this.dish = dish, this.dishCopy=dish; this.setPrevNext(dish.id); },
     errmess => this.errMes=<any>errmess);
     //console.log(this.dish);
   }
@@ -71,7 +73,7 @@ export class DishdetailComponent implements OnInit {
     this.commentForm=this.cf.group({
       author:['',[Validators.required, Validators.minLength(2)]],
       comment:['',Validators.required],
-      rating:[0, Validators.required],
+      rating:[5, Validators.required],
       date:[''],
     });
     this.commentForm.valueChanges
@@ -102,11 +104,16 @@ export class DishdetailComponent implements OnInit {
     let e=d.toDateString().slice(4);
     this.comment=this.commentForm.value;
     this.comment.date=e;
-    this.dish.comments.push(this.comment);
+    this.dishCopy.comments.push(this.comment);
+    this.dishService.putdish(this.dishCopy)
+    .subscribe(dish => {
+      this.dish=dish, this.dishCopy=dish;
+    },
+    errmess=>{this.dish=null, this.dishCopy=null; this.errMes=<any>errmess; });
     this.commentForm.reset({
       author:'',
       comment:'',
-      rating:0
+      rating:5
     });
     this.commentFormDirective.resetForm();
   }
