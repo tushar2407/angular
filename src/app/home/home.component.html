@@ -6,7 +6,7 @@
      fxLayoutAlign="space-around"
      fxLayoutGap="10px">
 
-<mat-card *ngIf="dish" fxFlex="30%">
+<mat-card *ngIf="dish" fxFlex="30%" [@expand]>
   <mat-card-header>
     <div mat-card-avatar></div>
     <mat-card-title>
@@ -27,7 +27,7 @@
   <h4> {{errMes}}</h4>
 </div>
 
-<mat-card *ngIf="promotion" fxFlex="30%">
+<mat-card *ngIf="promotion" fxFlex="30%" [@expand]>
   <mat-card-header>
     <div mat-card-avatar></div>
     <mat-card-title>
@@ -43,7 +43,8 @@
 <div fxFlex [hidden]="promotion">
   <mat-spinner></mat-spinner><h4>Loading ...</h4>
 </div>
-<mat-card *ngIf="leader" fxFlex="30%">
+
+<mat-card *ngIf="leader" fxFlex="30%" [@expand]>
   <mat-card-header>
     <div mat-card-avatar></div>
     <mat-card-title>

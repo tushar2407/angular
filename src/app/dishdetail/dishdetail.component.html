@@ -8,7 +8,7 @@
 
   <div fxFlex="50">
 
-    <div fxFlex *ngIf="dish">
+    <div fxFlex *ngIf="dish" [@visibility]="visibility" [@expand]>
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
@@ -40,7 +40,7 @@
       <h4> {{errMes}} </h4>
   </div>
 
-  <div fxFlex="50" *ngIf="dish" style="padding: 5vw;">
+  <div fxFlex="50" *ngIf="dish" style="padding: 5vw;" [@visibility]="visibility" [@animate]>
       <h2 style="font-weight: 200;">Comments</h2>
     <mat-list >
         <mat-list-item style="height:max-content;color:black; margin-bottom: 50px; padding-bottom: 10px;" *ngFor="let c of dish.comments">

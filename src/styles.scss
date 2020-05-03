@@ -47,3 +47,11 @@ $divider-color:        #BDBDBD;
 .flex-spacer {
   flex: 1 1 auto;
 }
+.highlight{
+  background-color: $background-pale;
+  border: 1px solid $primary-color-dark;
+  z-index: 1;
+  transform: scale(1.01);
+  transform:translateX(5px);
+  box-shadow:-5px -5px 8px 8px rgba(0,0,0,0.5);
+}
