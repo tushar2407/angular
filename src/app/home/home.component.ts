@@ -6,6 +6,7 @@ import {PromotionService} from '../services/promotion.service';
 import {Leader} from '../shared/leader';
 import {LeaderService} from '../services/leader.service';
 import {flyInOut,  expand} from '../animations/app.animations';
+//import { baseURL } from '../shared/baseurl';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -22,7 +23,9 @@ export class HomeComponent implements OnInit {
 
   dish:Dish;
   promotion:Promotion;
-  errMes:string;
+  errDishMes:string;
+  errLeaderMes:string;
+  errPromotionMes:string;
   leader:Leader;
   constructor( private dishService: DishService, 
     private promotionService: PromotionService,
@@ -30,16 +33,19 @@ export class HomeComponent implements OnInit {
     @Inject("BaseURL") public BaseURL) { }
 
   ngOnInit(): void {
+    //console.log(baseURL);
     //this.leader=this.leaderService.getFeaturedLeader();
     this.leaderService.getFeaturedLeader()
-    .subscribe((leader)=> this.leader=leader);
+    .subscribe((leader)=> this.leader=leader,
+    errmess=> this.errLeaderMes=<any>errmess);
     //this.dish= this.dishService.getFeaturedDish();
     this.dishService.getFeaturedDish()
     .subscribe((dish)=>this.dish=dish, 
-    errmess=> this.errMes=<any>errmess);
+    errmess=> this.errDishMes=<any>errmess);
     //this.promotion= this.promotionService.getFeaturedPromotion();
     this.promotionService.getFeaturedPromotion()
-    .subscribe((promotion)=>this.promotion=promotion);
+    .subscribe((promotion)=>this.promotion=promotion, 
+    errmess=> this.errPromotionMes=<any>errmess);
   }
 
 }

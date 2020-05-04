@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Feedback , ContactType} from '../shared/feedback';
-import {flyInOut} from '../animations/app.animations';
+import {flyInOut, expand} from '../animations/app.animations';
+import {FeedbackService} from '../services/feedback.service';
+import { delay } from 'rxjs/operators';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -11,13 +13,17 @@ import {flyInOut} from '../animations/app.animations';
     'style':'display:block'
   },
   animations:[
-    flyInOut()
+    flyInOut(),
+    expand()
   ]
 })
 export class ContactComponent implements OnInit {
 
   feedbackForm:FormGroup;
   feedback:Feedback;
+  feedbacks:Feedback[];
+  errMess:String;
+  flag:String=null;
   contactType=ContactType;
   @ViewChild('fform') feedbackFormDirective;
 
@@ -34,7 +40,7 @@ export class ContactComponent implements OnInit {
       'minlength':'should be atleast 2 length',
       'maxlength':'should be less than 25 length'
     },
-    'larstname':{
+    'lastname':{
       'required':'Last Name is required',
       'minlength':'should be atleast 2 length',
       'maxlength':'should be less than 25 length'
@@ -48,11 +54,16 @@ export class ContactComponent implements OnInit {
       'email':'Invalid email'
     }
   };
-  constructor(private fb: FormBuilder) { 
-    this.createForm();
+  constructor(private fb: FormBuilder,
+    private feedbackService: FeedbackService) { 
+    //this.createForm();
   }
 
   ngOnInit(): void {
+    this.createForm();
+    this.feedbackService.getFeedbacks()
+    .subscribe((feedbacks)=>this.feedbacks=feedbacks,
+    errMess=>this.errMess=<any>errMess);
   }
   createForm(){
     this.feedbackForm=this.fb.group({
@@ -91,18 +102,44 @@ export class ContactComponent implements OnInit {
     }
   }
   onSubmit(){
-    this.feedback= this.feedbackForm.value;
-    console.log(this.feedback);
-    this.feedbackForm.reset({
-      firstname:'',
-      lastname:'',
-      telnum:0,
-      email:'',
-      contacttype:'None',
-      agree:false,
-      message:''
-    });
+    //this.feedback= this.feedbackForm.value;
+    //console.log(this.feedback);
+    this.flag="false";
+    setTimeout(()=>{this.flag=null; this.feedback=this.feedbackForm.value;
+      this.feedbackForm.reset({
+        firstname:'',
+        lastname:'',
+        telnum:0,
+        email:'',
+        contacttype:'None',
+        agree:false,
+        message:''
+      });}, 2000);
+    this.feedbackService.postFeedback(this.feedback)
+    .subscribe(feedback=>this.feedbacks.push(feedback));
+    //this.flag=null;
+    //this.sleep(5000);
+    //this.feedback=null;
+    // this.feedbackForm.reset({
+    //   firstname:'',
+    //   lastname:'',
+    //   telnum:0,
+    //   email:'',
+    //   contacttype:'None',
+    //   agree:false,
+    //   message:''
+    // });
+    this.a();
+    //this.feedback=null;
+    //this.feedbackFormDirective.resetForm();
+  }
+  a(){
+    setTimeout(()=>{ this.feedback = null }, 5000);
+    //this.feedback=null;
     this.feedbackFormDirective.resetForm();
   }
-
+  sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+ 
 }

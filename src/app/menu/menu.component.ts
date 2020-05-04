@@ -17,7 +17,6 @@ import {flyInOut, expand} from '../animations/app.animations';
   ]
 })
 export class MenuComponent implements OnInit {
-
   dishes:Dish[];
   errMess:string;
   //selectedDish: Dish ;

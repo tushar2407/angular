@@ -66,7 +66,7 @@
     </div>-->
     <mat-list >
         <mat-list-item style="height:max-content;color:black; margin-bottom: 50px; padding-bottom: 10px;" *ngFor="let leader of leaders">
-            <img src="{{leader.image}}" style="border-radius: 50%;">
+            <img src="{{BaseURL+ leader.image}}" style="border-radius: 50%;">
             
                 <p >
                     {{leader.name}}  {{leader.abbr}}
@@ -77,8 +77,12 @@
         </mat-list-item>
     </mat-list>
   </div>
-  <div fxFlex [hidden]="leaders">
+  <div fxFlex [hidden]="leaders || errMess">
     <mat-spinner></mat-spinner><h4>Loading . ..... </h4>
+  </div>
+  <div *ngIf="errMess">
+    <h2> Error</h2>
+    <h4>{{errMess}}</h4>
   </div>
 
 </div>

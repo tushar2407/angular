@@ -146,7 +146,7 @@ export class DishdetailComponent implements OnInit {
     this.commentFormDirective.resetForm();
   }
   goBack():void {
-    console.log(this.location.back);
+    //console.log(this.location.back);
     this.location.back();
   }
 

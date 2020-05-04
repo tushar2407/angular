@@ -33,7 +33,7 @@
       </div>
     </div>
   </div>
-  <div fxFlex fxFlexOffset="20px" class="form-size" style="background-color: rgba(0,0,0,0.5);">
+  <div fxFlex fxFlexOffset="20px" [@expand] *ngIf="!feedback && !flag" class="form-size" style="background-color: rgba(0,0,0,0.5);">
     <h3> Give your feedback</h3>
     <!--<p>{{feedbackForm.value | json}} {{feedbackForm.status | json}}</p>-->
     <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
@@ -84,5 +84,16 @@
           </p>
           <button type="submit" mat-button [disabled]="this.feedbackForm.invalid">Submit</button>
     </form>
+  </div>
+  <div fxFlex [hidden]="!flag"  >
+    <mat-spinner></mat-spinner><h4>Submitting.....</h4>
+  </div>
+  <div *ngIf="feedback" [@expand]>
+    <h2>Feedback Form Information </h2>
+    <p>First Name : {{feedback.firstname}}</p>
+    <p>Last Name : {{feedback.lastname}}</p>
+    <p>Email : {{feedback.email}}</p>
+    <p>Tel No: {{feedback.telnum}}</p>
+    <p>Message : {{feedback.message}}</p>
   </div>
 </div>
